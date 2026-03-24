@@ -1,0 +1,29 @@
+body {
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #fef2f2 100%);
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+.form-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+  overflow: hidden;
+}
+
+.form-header {
+  background: linear-gradient(120deg, #9333ea, #ec4899);
+  color: #fff;
+  padding: 1.1rem 1.3rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0.65rem;
+}
+
+.btn-primary {
+  background: linear-gradient(120deg, #7c3aed, #ec4899);
+  border: 0;
+  font-weight: 600;
+}

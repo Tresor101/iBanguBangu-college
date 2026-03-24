@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Dashboard</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <style>
+    body { background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #fef2f2 100%); min-height: 100vh; }
+    .topbar { background: linear-gradient(120deg, #9333ea, #ec4899); color: #fff; border-radius: 1rem; padding: 1rem 1.25rem; box-shadow: 0 14px 30px rgba(30, 41, 59, 0.15); }
+    .dashboard-card { border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06); }
+    .stat-card { border-radius: 0.85rem; color: #fff; padding: 1rem; min-height: 110px; }
+    .stat-admissions { background: linear-gradient(120deg, #9333ea, #7c3aed); }
+    .stat-records { background: linear-gradient(120deg, #2563eb, #0ea5e9); }
+    .stat-requests { background: linear-gradient(120deg, #ec4899, #db2777); }
+    .section-title { font-size: 0.95rem; font-weight: 700; color: #334155; margin-bottom: 0.85rem; }
+    .quick-btn { border-radius: 0.7rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container py-4 py-lg-5">
+    <div class="topbar mb-4"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1">Registrar / Secretary Dashboard</h1><p class="mb-0 small">Admissions, student records, official communication, and document tracking.</p></div><div class="d-flex flex-wrap gap-2"><a href="teacher-registration.html" class="btn btn-light btn-sm">Add Teacher</a><a href="student-registration.html" class="btn btn-light btn-sm">Add Student</a><a href="parent-registration.html" class="btn btn-light btn-sm">Add Parent</a></div></div></div>
+    <div class="row g-3 mb-3">
+      <div class="col-12 col-md-4"><div class="stat-card stat-admissions"><div class="small text-white-50">Admissions This Term</div><div class="display-6 fw-bold lh-1 mt-1">124</div><div class="small mt-2">Pending review: 17</div></div></div>
+      <div class="col-12 col-md-4"><div class="stat-card stat-records"><div class="small text-white-50">Records Updated</div><div class="display-6 fw-bold lh-1 mt-1">302</div><div class="small mt-2">Missing files: 9</div></div></div>
+      <div class="col-12 col-md-4"><div class="stat-card stat-requests"><div class="small text-white-50">Document Requests</div><div class="display-6 fw-bold lh-1 mt-1">21</div><div class="small mt-2">12 ready for pickup</div></div></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-12 col-lg-7"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Admissions Pipeline</h2><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Stage</th><th>Count</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Submitted forms</td><td>124</td><td>Registrar</td><td><span class="badge text-bg-primary">Active</span></td></tr><tr><td>Under review</td><td>17</td><td>Admissions Desk</td><td><span class="badge text-bg-warning">Pending</span></td></tr><tr><td>Approved</td><td>96</td><td>Director</td><td><span class="badge text-bg-success">Processed</span></td></tr><tr><td>Awaiting documents</td><td>11</td><td>Parents</td><td><span class="badge text-bg-danger">Blocked</span></td></tr></tbody></table></div></div></div></div>
+      <div class="col-12 col-lg-5"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Record Requests</h2><ul class="list-group list-group-flush"><li class="list-group-item px-0"><div class="fw-semibold">Transfer letter batch</div><div class="small text-secondary">5 letters need school seal.</div></li><li class="list-group-item px-0"><div class="fw-semibold">Exam result transcripts</div><div class="small text-secondary">8 requests pending printing.</div></li><li class="list-group-item px-0"><div class="fw-semibold">Student file completion</div><div class="small text-secondary">9 files missing birth certificate copy.</div></li></ul></div></div></div>
+      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Communication Queue</h2><ul class="list-group list-group-flush"><li class="list-group-item px-0 d-flex justify-content-between"><span>Admission confirmations</span><strong>14</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Fee reminder letters</span><strong>28</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Meeting notices</span><strong>6</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Official stamp requests</span><strong>4</strong></li></ul></div></div></div>
+      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Quick Actions</h2><div class="d-grid gap-2"><button class="btn btn-primary quick-btn" type="button">Register New Student</button><button class="btn btn-outline-primary quick-btn" type="button">Search Student Records</button><button class="btn btn-outline-secondary quick-btn" type="button">Issue Official Letter</button><button class="btn btn-outline-success quick-btn" type="button">Print Admissions Report</button></div></div></div></div>
+    </div>
+  </div>
+</body>
+</html>
