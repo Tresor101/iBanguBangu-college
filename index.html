@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Kivu Sunrise | Landing Page</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--ink: #1b1f3b;
+			--ink-soft: #4c5270;
+			--brand-a: #0d9488;
+			--brand-b: #f59e0b;
+			--brand-c: #2563eb;
+			--panel: rgba(255, 255, 255, 0.9);
+			--line: #dbe4f0;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Sora", sans-serif;
+			color: var(--ink);
+			background:
+				radial-gradient(circle at 8% 14%, rgba(37, 99, 235, 0.2), transparent 24%),
+				radial-gradient(circle at 92% 10%, rgba(245, 158, 11, 0.22), transparent 25%),
+				radial-gradient(circle at 75% 90%, rgba(13, 148, 136, 0.2), transparent 30%),
+				linear-gradient(135deg, #f8fbff 0%, #eef7ff 46%, #fef6e8 100%);
+			min-height: 100vh;
+		}
+
+		.container {
+			width: min(1120px, 92vw);
+			margin: 0 auto;
+		}
+
+		.top-nav {
+			margin-top: 1.2rem;
+			padding: 0.9rem 1rem;
+			border-radius: 1rem;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid var(--line);
+			backdrop-filter: blur(7px);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.brand {
+			font-weight: 800;
+			letter-spacing: 0.01em;
+			font-size: 1.03rem;
+		}
+
+		.top-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.btn {
+			text-decoration: none;
+			border-radius: 0.75rem;
+			padding: 0.6rem 0.9rem;
+			font-size: 0.9rem;
+			font-weight: 600;
+			border: 1px solid transparent;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+			display: inline-block;
+		}
+
+		.btn:hover {
+			transform: translateY(-2px);
+		}
+
+		.btn-primary {
+			background: linear-gradient(120deg, var(--brand-c), #1d4ed8);
+			color: #fff;
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+		}
+
+		.btn-accent {
+			background: linear-gradient(120deg, #f59e0b, #ea580c);
+			color: #fff;
+			box-shadow: 0 10px 20px rgba(234, 88, 12, 0.2);
+		}
+
+		.btn-light {
+			background: #fff;
+			border-color: var(--line);
+			color: var(--ink);
+		}
+
+		.hero {
+			margin-top: 2.2rem;
+			padding: 2.2rem;
+			border-radius: 1.4rem;
+			border: 1px solid #d7e3f3;
+			background: linear-gradient(122deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.95));
+			box-shadow: 0 24px 40px rgba(30, 41, 59, 0.1);
+			overflow: hidden;
+			position: relative;
+			opacity: 0;
+			transform: translateY(16px);
+			animation: rise 0.8s ease forwards;
+		}
+
+		.hero::after {
+			content: "";
+			position: absolute;
+			right: -90px;
+			top: -90px;
+			width: 280px;
+			height: 280px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(13, 148, 136, 0.18), transparent 66%);
+			pointer-events: none;
+		}
+
+		.hero h1 {
+			margin: 0;
+			font-size: clamp(1.8rem, 4vw, 3rem);
+			line-height: 1.15;
+			max-width: 720px;
+		}
+
+		.hero p {
+			margin: 1rem 0 0;
+			color: var(--ink-soft);
+			max-width: 700px;
+			line-height: 1.6;
+		}
+
+		.hero-actions {
+			margin-top: 1.4rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.7rem;
+		}
+
+		.grid {
+			margin: 1.5rem 0 2.2rem;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.9rem;
+		}
+
+		.card {
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-radius: 1rem;
+			padding: 1.1rem;
+			box-shadow: 0 10px 20px rgba(30, 41, 59, 0.06);
+			opacity: 0;
+			transform: translateY(14px);
+			animation: rise 0.7s ease forwards;
+		}
+
+		.card:nth-child(2) { animation-delay: 0.12s; }
+		.card:nth-child(3) { animation-delay: 0.24s; }
+
+		.card h2 {
+			margin: 0 0 0.55rem;
+			font-size: 1rem;
+		}
+
+		.card p {
+			margin: 0;
+			color: var(--ink-soft);
+			font-size: 0.92rem;
+			line-height: 1.5;
+		}
+
+		.links {
+			margin-top: 0.9rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+		}
+
+		.small-link {
+			font-size: 0.8rem;
+			color: #1e3a8a;
+			text-decoration: none;
+			background: #eef2ff;
+			border: 1px solid #c7d2fe;
+			border-radius: 999px;
+			padding: 0.25rem 0.6rem;
+		}
+
+		.small-link:hover {
+			background: #e0e7ff;
+		}
+
+		@keyframes rise {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@media (max-width: 900px) {
+			.grid {
+				grid-template-columns: 1fr;
+			}
+
+			.top-nav {
+				align-items: flex-start;
+				flex-direction: column;
+			}
+
+			.hero {
+				padding: 1.5rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header class="top-nav">
+			<div class="brand">Kivu Sunrise Private School</div>
+			<div class="top-links">
+				<a class="btn btn-light" href="student-id-entry.html">Login</a>
+				<a class="btn btn-primary" href="director/proprietor-dashboard.html">Dashboard</a>
+				<a class="btn btn-accent" href="director/leadership-registration-form.html">Leadership Registration</a>
+			</div>
+		</header>
+
+		<main>
+			<section class="hero">
+				<h1>Manage your school operations from one smart dashboard</h1>
+				<p>
+					Centralize leadership decisions, monitor performance, and register key staff quickly.
+					This portal is designed for proprietors and school management teams to move from updates to action in seconds.
+				</p>
+				<div class="hero-actions">
+					<a class="btn btn-primary" href="director/proprietor-dashboard.html">Open Dashboard</a>
+					<a class="btn btn-accent" href="director/leadership-registration-form.html">Register Principal or Director</a>
+					<a class="btn btn-light" href="secretary/student-registration.html">Register Student</a>
+				</div>
+			</section>
+
+			<section class="grid" aria-label="Portal modules">
+				<article class="card">
+					<h2>Executive Dashboard</h2>
+					<p>Track enrollment, collections, staffing, and compliance status in one consolidated view.</p>
+					<div class="links">
+						<a class="small-link" href="director/proprietor-dashboard.html">Go to dashboard</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Leadership Registration</h2>
+					<p>Add new Principals and Directors using a simple form with key appointment details.</p>
+					<div class="links">
+						<a class="small-link" href="director/leadership-registration-form.html">Open form</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Role Dashboards</h2>
+					<p>Access role-specific spaces for academic director, bursar, registrar, teachers, and parents.</p>
+					<div class="links">
+						<a class="small-link" href="school-director-dashboard.html">School director</a>
+						<a class="small-link" href="academic-director-dashboard.html">Academic director</a>
+						<a class="small-link" href="bursar-dashboard.html">Bursar</a>
+						<a class="small-link" href="registrar-dashboard.html">Registrar</a>
+					</div>
+				</article>
+			</section>
+		</main>
+	</div>
+</body>
+</html>
