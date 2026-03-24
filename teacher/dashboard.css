@@ -1,0 +1,47 @@
+body {
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 58%, #f0fdf4 100%);
+  min-height: 100vh;
+}
+
+.topbar {
+  background: linear-gradient(120deg, #0f766e, #2563eb);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 14px 30px rgba(30, 41, 59, 0.15);
+}
+
+.dashboard-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.stat-card {
+  border-radius: 0.85rem;
+  color: #fff;
+  padding: 1rem;
+  min-height: 110px;
+}
+
+.stat-classes { background: linear-gradient(120deg, #0ea5e9, #2563eb); }
+.stat-students { background: linear-gradient(120deg, #10b981, #0f766e); }
+.stat-assignments { background: linear-gradient(120deg, #f59e0b, #ef4444); }
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.85rem;
+}
+
+.quick-btn {
+  border-radius: 0.7rem;
+  font-weight: 600;
+}
+
+.class-select {
+  min-width: 250px;
+  border-radius: 0.6rem;
+  border: 0;
+}
