@@ -18,9 +18,16 @@
       <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
         <div>
           <h1 class="h4 mb-1">Parent Dashboard</h1>
-          <p class="mb-0 small">Welcome back, Mr./Mrs. Guardian • Last updated: Today</p>
+          <p id="parentDashboardSubtitle" class="mb-0 small">Enter Parent ID to load linked students.</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-end">
+          <div>
+            <label for="parentIdInput" class="form-label small mb-1 text-white">Parent ID</label>
+            <div class="d-flex gap-2">
+              <input id="parentIdInput" type="text" class="form-control form-control-sm child-select" placeholder="Example: PAR260001" />
+              <button id="loadParentStudents" type="button" class="btn btn-light btn-sm">Load</button>
+            </div>
+          </div>
           <div>
             <label for="studentSelector" class="form-label small mb-1 text-white">Select Child</label>
             <select id="studentSelector" class="form-select form-select-sm child-select"></select>
@@ -28,6 +35,10 @@
           <a href="../student-id-entry.html" class="btn btn-light btn-sm">Logout</a>
         </div>
       </div>
+    </div>
+
+    <div id="linkedStudentsMessage" class="alert alert-info py-2 mb-3" role="status">
+      No parent selected yet.
     </div>
 
     <div class="row g-3 mb-3">

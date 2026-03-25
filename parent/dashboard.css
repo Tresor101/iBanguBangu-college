@@ -1,6 +1,41 @@
 body {
-  background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 55%, #ecfeff 100%);
+  background: linear-gradient(135deg, #2a1b3d 0%, #3b2a5a 55%, #4b2f6b 100%);
+  background-size: 200% 200%;
+  animation: parentGradientShift 14s ease-in-out infinite alternate;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -15% -10% -15% -10%;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(236, 72, 153, 0.22), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(168, 85, 247, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 84%, rgba(217, 70, 239, 0.2), transparent 36%);
+  animation: parentOverlayDrift 16s ease-in-out infinite alternate;
+}
+
+@keyframes parentGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes parentOverlayDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(2%, -1%, 0) scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body::before {
+    animation: none;
+  }
 }
 
 .topbar {

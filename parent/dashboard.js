@@ -12,49 +12,83 @@ const profileClass = document.getElementById("profileClass");
 const profileLevel = document.getElementById("profileLevel");
 const resultsPeriodTag = document.getElementById("resultsPeriodTag");
 const resultsBody = document.getElementById("resultsBody");
+const parentIdInput = document.getElementById("parentIdInput");
+const loadParentStudentsButton = document.getElementById("loadParentStudents");
+const linkedStudentsMessage = document.getElementById("linkedStudentsMessage");
+const parentDashboardSubtitle = document.getElementById("parentDashboardSubtitle");
 
-const children = [
-  {
-    id: "STU-20260304-1234",
-    name: "John Doe",
-    classLabel: "Grade 10 - A",
-    schoolLevel: "high",
-    attendancePercent: 94,
-    attendancePresent: 47,
-    attendanceTotal: 50,
-    balance: 120,
-    dueDate: "Mar 20",
-    modules: [
-      { subject: "Mathematics", baseScore: 89 },
-      { subject: "Physics", baseScore: 84 },
-      { subject: "Chemistry", baseScore: 82 },
-      { subject: "Biology", baseScore: 86 },
+let children = [];
+
+function normalizeIdentifier(value) {
+  return value.trim().toUpperCase();
+}
+
+function getStoredRegistrations() {
+  try {
+    const raw = localStorage.getItem("student-registrations");
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function getLevelFromGrade(grade) {
+  const extracted = Number((grade || "").replace(/[^0-9]/g, ""));
+  if (Number.isFinite(extracted) && extracted > 0 && extracted <= 6) {
+    return "primary";
+  }
+  return "high";
+}
+
+function getModulesForLevel(level) {
+  if (level === "primary") {
+    return [
+      { subject: "Mathematics", baseScore: 82 },
       { subject: "English", baseScore: 80 },
-      { subject: "History", baseScore: 91 },
-      { subject: "Geography", baseScore: 83 },
-      { subject: "Computer Studies", baseScore: 88 }
-    ]
-  },
-  {
-    id: "STU-20260304-4321",
-    name: "Jane Doe",
-    classLabel: "Grade 5 - B",
-    schoolLevel: "primary",
-    attendancePercent: 97,
-    attendancePresent: 49,
-    attendanceTotal: 50,
+      { subject: "Science", baseScore: 79 },
+      { subject: "Social Studies", baseScore: 78 },
+      { subject: "French", baseScore: 77 },
+      { subject: "Moral Education", baseScore: 81 }
+    ];
+  }
+
+  return [
+    { subject: "Mathematics", baseScore: 80 },
+    { subject: "Physics", baseScore: 78 },
+    { subject: "Chemistry", baseScore: 77 },
+    { subject: "Biology", baseScore: 79 },
+    { subject: "English", baseScore: 76 },
+    { subject: "History", baseScore: 81 },
+    { subject: "Geography", baseScore: 78 },
+    { subject: "Computer Studies", baseScore: 82 }
+  ];
+}
+
+function toChildProfile(registration, index) {
+  const schoolLevel = getLevelFromGrade(registration.grade);
+  const attendanceTotal = 50;
+  const attendancePercent = Math.min(99, 92 + (index % 6));
+  const attendancePresent = Math.round((attendancePercent / 100) * attendanceTotal);
+
+  return {
+    id: registration.studentId,
+    name: `${registration.firstName} ${registration.lastName}`.trim(),
+    classLabel: registration.grade || "Unassigned",
+    schoolLevel,
+    attendancePercent,
+    attendancePresent,
+    attendanceTotal,
     balance: 0,
     dueDate: "No outstanding fee",
-    modules: [
-      { subject: "Mathematics", baseScore: 93 },
-      { subject: "English", baseScore: 88 },
-      { subject: "Science", baseScore: 90 },
-      { subject: "Social Studies", baseScore: 86 },
-      { subject: "French", baseScore: 84 },
-      { subject: "Moral Education", baseScore: 91 }
-    ]
-  }
-];
+    modules: getModulesForLevel(schoolLevel)
+  };
+}
+
+function setLinkedStudentsMessage(text, style) {
+  linkedStudentsMessage.className = `alert alert-${style} py-2 mb-3`;
+  linkedStudentsMessage.textContent = text;
+}
 
 function getLevelLabel(level) {
   return level === "primary" ? "Primary School" : "High School";
@@ -196,15 +230,69 @@ function renderChild(child) {
   renderAssessmentForChild(child);
 }
 
-children.forEach((child, index) => {
-  const option = document.createElement("option");
-  option.value = child.id;
-  option.textContent = `${child.name} (${child.classLabel})`;
-  if (index === 0) {
-    option.selected = true;
+function renderEmptyDashboard() {
+  studentSelector.innerHTML = "";
+  resultSelector.innerHTML = "";
+  statAttendancePercent.textContent = "0%";
+  statAttendanceDetail.textContent = "Present: 0 / 0 days";
+  statAverage.textContent = "0%";
+  statPeriodLabel.textContent = "No data";
+  statBalance.textContent = "$0";
+  statDueDate.textContent = "No outstanding fee";
+  profileName.textContent = "-";
+  profileStudentId.textContent = "-";
+  profileClass.textContent = "-";
+  profileLevel.textContent = "-";
+  resultsPeriodTag.textContent = "No result records";
+  resultsBody.innerHTML = '<tr><td colspan="4" class="text-secondary">No students linked to this parent ID yet.</td></tr>';
+}
+
+function populateChildSelector() {
+  studentSelector.innerHTML = "";
+  children.forEach((child, index) => {
+    const option = document.createElement("option");
+    option.value = child.id;
+    option.textContent = `${child.name} (${child.classLabel})`;
+    if (index === 0) {
+      option.selected = true;
+    }
+    studentSelector.appendChild(option);
+  });
+}
+
+function loadChildrenForParent(parentIdValue) {
+  const parentId = normalizeIdentifier(parentIdValue);
+  parentIdInput.value = parentId;
+
+  if (!parentId) {
+    children = [];
+    renderEmptyDashboard();
+    parentDashboardSubtitle.textContent = "Enter Parent ID to load linked students.";
+    setLinkedStudentsMessage("Please enter Parent ID.", "warning");
+    return;
   }
-  studentSelector.appendChild(option);
-});
+
+  const registrations = getStoredRegistrations();
+  const linkedRegistrations = registrations.filter(
+    (item) => normalizeIdentifier(item.parentId || "") === parentId
+  );
+
+  if (linkedRegistrations.length === 0) {
+    children = [];
+    renderEmptyDashboard();
+    parentDashboardSubtitle.textContent = `No linked students found for ${parentId}.`;
+    setLinkedStudentsMessage("No students found for this Parent ID.", "warning");
+    return;
+  }
+
+  localStorage.setItem("current-parent-id", parentId);
+  children = linkedRegistrations.map((item, index) => toChildProfile(item, index));
+  populateChildSelector();
+  renderChild(children[0]);
+
+  parentDashboardSubtitle.textContent = `Showing students linked to ${parentId}.`;
+  setLinkedStudentsMessage(`Loaded ${children.length} student(s) for Parent ID ${parentId}.`, "success");
+}
 
 studentSelector.addEventListener("change", () => {
   const selected = children.find((child) => child.id === studentSelector.value);
@@ -220,4 +308,23 @@ resultSelector.addEventListener("change", () => {
   }
 });
 
-renderChild(children[0]);
+loadParentStudentsButton.addEventListener("click", () => {
+  loadChildrenForParent(parentIdInput.value);
+});
+
+parentIdInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    loadChildrenForParent(parentIdInput.value);
+  }
+});
+
+const queryParentId = new URLSearchParams(window.location.search).get("parentId");
+const cachedParentId = localStorage.getItem("current-parent-id") || "";
+const initialParentId = queryParentId || cachedParentId;
+
+if (initialParentId) {
+  loadChildrenForParent(initialParentId);
+} else {
+  renderEmptyDashboard();
+}
