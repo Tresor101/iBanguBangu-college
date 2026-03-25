@@ -1,0 +1,55 @@
+body {
+  background: linear-gradient(135deg, #0b1f5e 0%, #123a9e 55%, #1d4ed8 100%);
+  background-size: 220% 220%;
+  animation: blueShift 12s ease-in-out infinite;
+  min-height: 100vh;
+}
+
+@keyframes blueShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+}
+
+.topbar {
+  background: linear-gradient(120deg, #0ea5e9, #2563eb);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 14px 30px rgba(30, 41, 59, 0.15);
+}
+
+.dashboard-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.stat-card {
+  border-radius: 0.85rem;
+  color: #fff;
+  padding: 1rem;
+  min-height: 110px;
+}
+
+.stat-attendance { background: linear-gradient(120deg, #0ea5e9, #2563eb); }
+.stat-average { background: linear-gradient(120deg, #8b5cf6, #7c3aed); }
+.stat-assignments { background: linear-gradient(120deg, #f97316, #ef4444); }
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.85rem;
+}
+
+.quick-btn {
+  border-radius: 0.7rem;
+  font-weight: 600;
+}
