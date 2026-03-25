@@ -9,13 +9,44 @@
 }
 
 body {
-  background:
-    radial-gradient(circle at 8% 12%, rgba(20, 184, 166, 0.15), transparent 28%),
-    radial-gradient(circle at 92% 18%, rgba(14, 165, 233, 0.15), transparent 28%),
-    radial-gradient(circle at 30% 95%, rgba(99, 102, 241, 0.12), transparent 35%),
-    linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 48%, var(--bg-c) 100%);
+  background: linear-gradient(135deg, #052e1f 0%, #064e3b 50%, #065f46 100%);
+  background-size: 210% 210%;
+  animation: secretaryGradientShift 14s ease-in-out infinite alternate;
   min-height: 100vh;
   color: var(--text-dark);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -15% -10% -15% -10%;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(16, 185, 129, 0.28), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(34, 197, 94, 0.24), transparent 34%),
+    radial-gradient(circle at 52% 84%, rgba(20, 184, 166, 0.2), transparent 36%);
+  animation: secretaryOverlayDrift 16s ease-in-out infinite alternate;
+}
+
+@keyframes secretaryGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes secretaryOverlayDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(2%, -1%, 0) scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body::before {
+    animation: none;
+  }
 }
 
 .registration-card {

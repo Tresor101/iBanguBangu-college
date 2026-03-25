@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="container py-4 py-lg-5">
+    <div class="topbar mb-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+          <h1 class="h4 mb-1">Message</h1>
+          <p class="mb-0 small">Send announcements to students, parents, or staff.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="dashboard.html" class="btn btn-light btn-sm">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card dashboard-card">
+      <div class="card-body">
+        <h2 class="section-title">New Broadcast</h2>
+        <form id="broadcastForm">
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="audience">Audience</label>
+              <select class="form-select" id="audience">
+                <option>All Students</option>
+                <option>All Parents</option>
+                <option>All Teachers</option>
+                <option>Department Heads</option>
+                <option>Classes/Grade</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="classGrade">Specific Class/Grade (optional)</label>
+              <select class="form-select" id="classGrade" disabled>
+                <option value="">Choose class/grade</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-control" id="message" rows="5" placeholder="Write your announcement here..."></textarea>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Send Broadcast</button>
+            <button type="reset" class="btn btn-outline-secondary">Clear</button>
+          </div>
+        </form>
+        <div id="broadcastStatus" class="alert alert-success mt-3 d-none" role="alert"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const STORAGE_KEY = "secretaryBroadcastMessages";
+    const CLASS_STORAGE_KEY = "class-registrations";
+
+    const form = document.getElementById("broadcastForm");
+    const audienceSelect = document.getElementById("audience");
+    const classGradeSelect = document.getElementById("classGrade");
+    const statusBox = document.getElementById("broadcastStatus");
+
+    const readClassRegistrations = function () {
+      try {
+        const raw = localStorage.getItem(CLASS_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    };
+
+    const populateClassGradeOptions = function () {
+      const classes = readClassRegistrations();
+      const options = classes
+        .map(function (item) {
+          const classGrade = String(item.classGrade || "").trim();
+          const section = String(item.section || "").trim();
+          if (!classGrade) {
+            return "";
+          }
+          return section ? classGrade + " - " + section : classGrade;
+        })
+        .filter(Boolean);
+
+      const uniqueSorted = Array.from(new Set(options)).sort();
+
+      classGradeSelect.innerHTML = '<option value="">Choose class/grade</option>';
+      uniqueSorted.forEach(function (label) {
+        const option = document.createElement("option");
+        option.value = label;
+        option.textContent = label;
+        classGradeSelect.appendChild(option);
+      });
+
+      if (uniqueSorted.length === 0) {
+        const emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.textContent = "No classes/grades found";
+        classGradeSelect.appendChild(emptyOption);
+      }
+    };
+
+    const updateClassGradeLock = function () {
+      const enableClassGrade = audienceSelect.value.trim() === "Classes/Grade";
+      classGradeSelect.disabled = !enableClassGrade;
+      if (!enableClassGrade) {
+        classGradeSelect.value = "";
+      }
+    };
+
+    populateClassGradeOptions();
+    updateClassGradeLock();
+    audienceSelect.addEventListener("change", updateClassGradeLock);
+    form.addEventListener("reset", function () {
+      setTimeout(updateClassGradeLock, 0);
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const audience = audienceSelect.value.trim();
+      const classGrade = classGradeSelect.disabled ? "" : classGradeSelect.value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (audience === "Classes/Grade" && !classGrade) {
+        statusBox.classList.remove("d-none", "alert-success");
+        statusBox.classList.add("alert-danger");
+        statusBox.textContent = "Please choose a class/grade for this audience.";
+        return;
+      }
+
+      if (!message) {
+        statusBox.classList.remove("d-none", "alert-success");
+        statusBox.classList.add("alert-danger");
+        statusBox.textContent = "Please enter a message before sending.";
+        return;
+      }
+
+      let existing = [];
+      try {
+        existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch (error) {
+        existing = [];
+      }
+
+      const payload = {
+        id: Date.now(),
+        audience,
+        classGrade,
+        message,
+        createdAt: new Date().toISOString()
+      };
+
+      existing.unshift(payload);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(existing.slice(0, 30)));
+
+      statusBox.classList.remove("d-none", "alert-danger");
+      statusBox.classList.add("alert-success");
+      statusBox.textContent = "Broadcast sent. Redirecting to dashboard...";
+
+      setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 700);
+    });
+  </script>
+</body>
+</html>

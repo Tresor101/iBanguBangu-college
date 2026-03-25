@@ -14,7 +14,7 @@
 </head>
 <body>
   <div class="container py-4 py-lg-5">
-    <div class="topbar mb-4"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1">Registrar / Secretary Dashboard</h1><p class="mb-0 small">Admissions, student records, official communication, and document tracking.</p></div><div class="d-flex flex-wrap gap-2"><a href="teacher.html" class="btn btn-light btn-sm">Add Teacher</a><a href="student.html" class="btn btn-light btn-sm">Add Student</a><a href="parent.html" class="btn btn-light btn-sm">Add Parent</a><a href="subject.html" class="btn btn-light btn-sm">Add Subject</a><a href="department.html" class="btn btn-light btn-sm">Add Department</a><a href="class-grade.html" class="btn btn-light btn-sm">Add Class/Grade</a><a href="manage-class.html" class="btn btn-light btn-sm">Manage Assignments</a></div></div></div>
+    <div class="topbar mb-4"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h1 class="h4 mb-1">Registrar / Secretary Dashboard</h1><p class="mb-0 small">Admissions, student records, official communication, and document tracking.</p></div><div class="d-flex flex-wrap gap-2"><a href="teacher.html" class="btn btn-light btn-sm">Add Teacher</a><a href="student.html" class="btn btn-light btn-sm">Add Student</a><a href="parent.html" class="btn btn-light btn-sm">Add Parent</a><a href="subject.html" class="btn btn-light btn-sm">Add Subject</a><a href="department.html" class="btn btn-light btn-sm">Add Department</a><a href="class-grade.html" class="btn btn-light btn-sm">Add Class/Grade</a><a href="manage-class.html" class="btn btn-light btn-sm">Manage Assignments</a><a href="message.html" class="btn btn-light btn-sm">Message</a></div></div></div>
     <div class="row g-3 mb-3">
       <div class="col-12 col-md-4"><div class="stat-card stat-admissions"><div class="small text-white-50">Admissions This Term</div><div class="display-6 fw-bold lh-1 mt-1">124</div><div class="small mt-2">Pending review: 17</div></div></div>
       <div class="col-12 col-md-4"><div class="stat-card stat-records"><div class="small text-white-50">Records Updated</div><div class="display-6 fw-bold lh-1 mt-1">302</div><div class="small mt-2">Missing files: 9</div></div></div>
@@ -23,9 +23,52 @@
     <div class="row g-3">
       <div class="col-12 col-lg-7"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Admissions Pipeline</h2><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Stage</th><th>Count</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Submitted forms</td><td>124</td><td>Registrar</td><td><span class="badge text-bg-primary">Active</span></td></tr><tr><td>Under review</td><td>17</td><td>Admissions Desk</td><td><span class="badge text-bg-warning">Pending</span></td></tr><tr><td>Approved</td><td>96</td><td>Director</td><td><span class="badge text-bg-success">Processed</span></td></tr><tr><td>Awaiting documents</td><td>11</td><td>Parents</td><td><span class="badge text-bg-danger">Blocked</span></td></tr></tbody></table></div></div></div></div>
       <div class="col-12 col-lg-5"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Record Requests</h2><ul class="list-group list-group-flush"><li class="list-group-item px-0"><div class="fw-semibold">Transfer letter batch</div><div class="small text-secondary">5 letters need school seal.</div></li><li class="list-group-item px-0"><div class="fw-semibold">Exam result transcripts</div><div class="small text-secondary">8 requests pending printing.</div></li><li class="list-group-item px-0"><div class="fw-semibold">Student file completion</div><div class="small text-secondary">9 files missing birth certificate copy.</div></li></ul></div></div></div>
-      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Communication Queue</h2><ul class="list-group list-group-flush"><li class="list-group-item px-0 d-flex justify-content-between"><span>Admission confirmations</span><strong>14</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Fee reminder letters</span><strong>28</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Meeting notices</span><strong>6</strong></li><li class="list-group-item px-0 d-flex justify-content-between"><span>Official stamp requests</span><strong>4</strong></li></ul></div></div></div>
-      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Quick Actions</h2><div class="d-grid gap-2"><a href="student.html" class="btn btn-primary quick-btn" role="button">Add Student</a><a href="subject.html" class="btn btn-outline-info quick-btn" role="button">Add Subject</a><a href="department.html" class="btn btn-outline-dark quick-btn" role="button">Add Department</a><a href="class-grade.html" class="btn btn-outline-warning quick-btn" role="button">Add Class/Grade</a><a href="manage-class.html" class="btn btn-outline-secondary quick-btn" role="button">Manage Assignments</a><button class="btn btn-outline-primary quick-btn" type="button">Search Student Records</button><button class="btn btn-outline-secondary quick-btn" type="button">Issue Official Letter</button><button class="btn btn-outline-success quick-btn" type="button">Print Admissions Report</button></div></div></div></div>
+      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-center"><h2 class="section-title mb-0">Communication Queue</h2><a href="message.html" class="btn btn-sm btn-outline-success">New Message</a></div><ul class="list-group list-group-flush mt-3" id="broadcastFeed"><li class="list-group-item px-0 text-secondary">No broadcasts sent yet.</li></ul></div></div></div>
+      <div class="col-12 col-lg-6"><div class="card dashboard-card h-100"><div class="card-body"><h2 class="section-title">Quick Actions</h2><div class="d-grid gap-2"><a href="teacher.html" class="btn btn-primary quick-btn" role="button">Add Teacher</a><a href="student.html" class="btn btn-outline-primary quick-btn" role="button">Add Student</a><a href="parent.html" class="btn btn-outline-primary quick-btn" role="button">Add Parent</a><a href="subject.html" class="btn btn-outline-info quick-btn" role="button">Add Subject</a><a href="department.html" class="btn btn-outline-dark quick-btn" role="button">Add Department</a><a href="class-grade.html" class="btn btn-outline-warning quick-btn" role="button">Add Class/Grade</a><a href="manage-class.html" class="btn btn-outline-secondary quick-btn" role="button">Manage Assignments</a><a href="message.html" class="btn btn-outline-success quick-btn" role="button">Message</a></div></div></div></div>
     </div>
   </div>
+  <script>
+    (function () {
+      const STORAGE_KEY = "secretaryBroadcastMessages";
+      const broadcastFeed = document.getElementById("broadcastFeed");
+
+      let items = [];
+      try {
+        items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch (error) {
+        items = [];
+      }
+
+      if (!Array.isArray(items) || items.length === 0) {
+        return;
+      }
+
+      const escapeHtml = function (value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      };
+
+      const formatDate = function (isoDate) {
+        const date = new Date(isoDate);
+        if (Number.isNaN(date.getTime())) {
+          return "Just now";
+        }
+        return date.toLocaleString();
+      };
+
+      broadcastFeed.innerHTML = items.slice(0, 6).map(function (item) {
+        const classGradeText = item.classGrade ? ' - ' + escapeHtml(item.classGrade) : '';
+        return '<li class="list-group-item px-0">'
+          + '<div class="fw-semibold">To ' + escapeHtml(item.audience) + classGradeText + ' (Dashboard)</div>'
+          + '<div class="small text-secondary">' + escapeHtml(item.message) + '</div>'
+          + '<div class="small text-muted mt-1">' + formatDate(item.createdAt) + '</div>'
+          + '</li>';
+      }).join("");
+    })();
+  </script>
 </body>
 </html>
