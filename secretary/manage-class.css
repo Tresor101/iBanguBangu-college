@@ -1,0 +1,44 @@
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 55%, #fff7ed 100%);
+  min-height: 100vh;
+}
+
+.manage-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-control {
+  border-radius: 0.65rem;
+}
+
+.form-select {
+  border-radius: 0.65rem;
+}
+
+#editClassCode {
+  background-color: #e2e8f0;
+  font-weight: 600;
+}
+
+#assignDepartment {
+  background-color: #e2e8f0;
+  font-weight: 600;
+}
+
+.table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #475569;
+}
+
+.btn {
+  border-radius: 0.65rem;
+}

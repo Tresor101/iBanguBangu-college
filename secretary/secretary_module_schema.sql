@@ -1,7 +1,7 @@
 -- Hostinger-compatible schema (MySQL 8 / MariaDB) for:
--- - secretary/student-registration.html
--- - secretary/parent-registration.html
--- - secretary/teacher-registration.html
+-- - secretary/student.html
+-- - secretary/parent.html
+-- - secretary/teacher.html
 -- - secretary/dashboard.html
 --
 -- Features:
@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS registrar_parents (
 
 CREATE TABLE IF NOT EXISTS registrar_students (
     student_id VARCHAR(30) NOT NULL,
-    admission_no VARCHAR(30) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     gender ENUM('male', 'female') NOT NULL,
@@ -44,7 +43,6 @@ CREATE TABLE IF NOT EXISTS registrar_students (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (student_id),
-    UNIQUE KEY uq_registrar_students_admission_no (admission_no),
     KEY idx_registrar_students_class_grade (class_grade),
     KEY idx_registrar_students_admission_date (admission_date),
     KEY idx_registrar_students_parent_id_ref (parent_id_ref),
@@ -127,11 +125,6 @@ FOR EACH ROW
 BEGIN
     DECLARE v_age_years INT;
 
-    IF NEW.student_id <> NEW.admission_no THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'student_id and admission_no must match for secretary form records.';
-    END IF;
-
     SET v_age_years = TIMESTAMPDIFF(YEAR, NEW.date_of_birth, CURDATE());
     IF v_age_years < 2 OR v_age_years > 23 THEN
         SIGNAL SQLSTATE '45000'
@@ -144,11 +137,6 @@ BEFORE UPDATE ON registrar_students
 FOR EACH ROW
 BEGIN
     DECLARE v_age_years INT;
-
-    IF NEW.student_id <> NEW.admission_no THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'student_id and admission_no must match for secretary form records.';
-    END IF;
 
     SET v_age_years = TIMESTAMPDIFF(YEAR, NEW.date_of_birth, CURDATE());
     IF v_age_years < 2 OR v_age_years > 23 THEN
@@ -192,17 +180,17 @@ WHERE YEAR(requested_on) = YEAR(CURDATE())
 -- --------------------------------------------------
 -- Suggested write pattern
 -- --------------------------------------------------
--- 1) Create parent first (from parent-registration form)
+-- 1) Create parent first (from parent form)
 -- INSERT INTO registrar_parents (parent_id, full_name, relationship_to_student, phone)
 -- VALUES ('PAR-20260323-1001', 'Mary K.', 'Mother', '+243000000000');
 --
--- 2) Insert student from student-registration form
+-- 2) Insert student from student form
 -- INSERT INTO registrar_students (
---     student_id, admission_no, first_name, last_name, gender, date_of_birth,
+--     student_id, first_name, last_name, gender, date_of_birth,
 --     class_grade, admission_date, parent_id_ref
 -- )
 -- VALUES (
---     'STU-20260323-4821', 'STU-20260323-4821', 'John', 'Doe', 'male', '2012-03-23',
+--     'STU-20260323-4821', 'John', 'Doe', 'male', '2012-03-23',
 --     'Grade 7', '2026-03-23', 'PAR-20260323-1001'
 -- );
 --
