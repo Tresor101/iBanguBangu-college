@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Kivu Sunrise | Landing Page</title>
+	<title>iBanguBangu | Landing Page</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -137,12 +137,64 @@
 			line-height: 1.6;
 		}
 
-		.hero-actions {
+		.hero-cta {
 			margin-top: 1.4rem;
 			display: flex;
 			flex-wrap: wrap;
 			gap: 0.7rem;
 		}
+
+		.role-section-label {
+			margin: 1.5rem 0 0.6rem;
+			font-size: 0.72rem;
+			font-weight: 700;
+			letter-spacing: 0.09em;
+			text-transform: uppercase;
+			color: var(--ink-soft);
+		}
+
+		.role-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+			gap: 0.55rem;
+		}
+
+		.role-card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.4rem;
+			padding: 0.9rem 0.5rem 0.75rem;
+			border-radius: 0.9rem;
+			text-decoration: none;
+			font-size: 0.78rem;
+			font-weight: 600;
+			text-align: center;
+			border: 1px solid transparent;
+			transition: transform 0.18s ease, box-shadow 0.18s ease;
+			line-height: 1.25;
+		}
+
+		.role-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 20px rgba(30, 41, 59, 0.12);
+		}
+
+		.role-icon {
+			font-size: 1.5rem;
+			line-height: 1;
+		}
+
+		.rc-proprietor  { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+		.rc-director    { background: #f0fdf4; border-color: #86efac; color: #166534; }
+		.rc-academic    { background: #f0f9ff; border-color: #bae6fd; color: #0c4a6e; }
+		.rc-deputy      { background: #ecfdf5; border-color: #6ee7b7; color: #065f46; }
+		.rc-bursar      { background: #fffbeb; border-color: #fcd34d; color: #92400e; }
+		.rc-secretary   { background: #fdf4ff; border-color: #d8b4fe; color: #6b21a8; }
+		.rc-discipline  { background: #fff1f2; border-color: #fda4af; color: #9f1239; }
+		.rc-teacher     { background: #fefce8; border-color: #fde047; color: #713f12; }
+		.rc-parent      { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
+		.rc-student     { background: #eef2ff; border-color: #a5b4fc; color: #3730a3; }
 
 		.grid {
 			margin: 1.5rem 0 2.2rem;
@@ -224,11 +276,11 @@
 <body>
 	<div class="container">
 		<header class="top-nav">
-			<div class="brand">Kivu Sunrise Private School</div>
+			<div class="brand">iBanguBangu Pricate School</div>
 			<div class="top-links">
-				<a class="btn btn-light" href="student-id-entry.html">Login</a>
-				<a class="btn btn-primary" href="director/proprietor-dashboard.html">Dashboard</a>
-				<a class="btn btn-accent" href="director/leadership-registration-form.html">Leadership Registration</a>
+				<a class="btn btn-light" href="login/login.html">Login</a>
+				<a class="btn btn-primary" href="superadmin/dashboard.html">Dashboard</a>
+				<a class="btn btn-accent" href="superadmin/registration.html">Leadership Registration</a>
 			</div>
 		</header>
 
@@ -239,38 +291,93 @@
 					Centralize leadership decisions, monitor performance, and register key staff quickly.
 					This portal is designed for proprietors and school management teams to move from updates to action in seconds.
 				</p>
-				<div class="hero-actions">
-					<a class="btn btn-primary" href="director/proprietor-dashboard.html">Open Dashboard</a>
-					<a class="btn btn-accent" href="director/leadership-registration-form.html">Register Principal or Director</a>
-					<a class="btn btn-light" href="secretary/student-registration.html">Register Student</a>
+				<p class="role-section-label">Jump to a role dashboard</p>
+				<div class="role-grid">
+					<a class="role-card rc-proprietor" href="superadmin/dashboard.html">
+						<span class="role-icon">👑</span><span>Proprietor</span>
+					</a>
+					<a class="role-card rc-director" href="school-director-dashboard.html">
+						<span class="role-icon">🏫</span><span>School Director</span>
+					</a>
+					<a class="role-card rc-academic" href="principal/dashboard.html">
+						<span class="role-icon">🎓</span><span>Academic Director</span>
+					</a>
+					<a class="role-card rc-deputy" href="deputy_principal/dashboard.html">
+						<span class="role-icon">📐</span><span>Deputy Director</span>
+					</a>
+					<a class="role-card rc-bursar" href="bursary/dashboard.html">
+						<span class="role-icon">💰</span><span>Bursar</span>
+					</a>
+					<a class="role-card rc-secretary" href="secretary/dashboard.html">
+						<span class="role-icon">📋</span><span>Secretary</span>
+					</a>
+					<a class="role-card rc-discipline" href="dd/dashboard.html">
+						<span class="role-icon">🛡️</span><span>Discipline Officer</span>
+					</a>
+					<a class="role-card rc-teacher" href="teacher/dashboard.html">
+						<span class="role-icon">📚</span><span>Teacher</span>
+					</a>
+					<a class="role-card rc-parent" href="parent/dashboard.html">
+						<span class="role-icon">👨‍👩‍👧</span><span>Parent</span>
+					</a>
+					<a class="role-card rc-student" href="student/dashboard.html">
+						<span class="role-icon">🎒</span><span>Student</span>
+					</a>
 				</div>
 			</section>
 
 			<section class="grid" aria-label="Portal modules">
 				<article class="card">
-					<h2>Executive Dashboard</h2>
-					<p>Track enrollment, collections, staffing, and compliance status in one consolidated view.</p>
+					<h2>Proprietor / Promoter</h2>
+					<p>The school owner and top authority. This role monitors the entire institution, reviews performance, approves major decisions, and creates leadership accounts for the people managing the school.</p>
 					<div class="links">
-						<a class="small-link" href="director/proprietor-dashboard.html">Go to dashboard</a>
+						<a class="small-link" href="superadmin/dashboard.html">Open dashboard</a>
+						<a class="small-link" href="superadmin/registration.html">Register leadership</a>
 					</div>
 				</article>
 
 				<article class="card">
-					<h2>Leadership Registration</h2>
-					<p>Add new Principals and Directors using a simple form with key appointment details.</p>
+					<h2>School Director</h2>
+					<p>The overall school manager responsible for daily leadership, coordination across departments, and making sure the institution runs smoothly according to the proprietor's direction.</p>
 					<div class="links">
-						<a class="small-link" href="director/leadership-registration-form.html">Open form</a>
+						<a class="small-link" href="school-director-dashboard.html">Open dashboard</a>
 					</div>
 				</article>
 
 				<article class="card">
-					<h2>Role Dashboards</h2>
-					<p>Access role-specific spaces for academic director, bursar, registrar, teachers, and parents.</p>
+					<h2>Academic Leadership</h2>
+					<p>The Academic Director and Deputy Director oversee teaching quality, exams, staff supervision, and classroom performance. They guide the school's academic standards and daily instructional planning.</p>
 					<div class="links">
-						<a class="small-link" href="school-director-dashboard.html">School director</a>
-						<a class="small-link" href="academic-director-dashboard.html">Academic director</a>
-						<a class="small-link" href="bursar-dashboard.html">Bursar</a>
-						<a class="small-link" href="registrar-dashboard.html">Registrar</a>
+						<a class="small-link" href="principal/dashboard.html">Academic director</a>
+						<a class="small-link" href="deputy_principal/dashboard.html">Deputy director</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Administration</h2>
+					<p>The Secretary manages student records, parent information, classes, teachers, subjects, and communication. This role keeps the administrative structure of the school accurate and up to date.</p>
+					<div class="links">
+						<a class="small-link" href="secretary/dashboard.html">Secretary</a>
+						<a class="small-link" href="secretary/student.html">Register student</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Finance & Discipline</h2>
+					<p>The Bursar tracks fee payments and balances, while the Discipline Officer records incidents and student conduct. Together they support accountability in finance and behavior management.</p>
+					<div class="links">
+						<a class="small-link" href="bursary/dashboard.html">Bursar</a>
+						<a class="small-link" href="dd/dashboard.html">Discipline officer</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Classroom Community</h2>
+					<p>Teachers manage learning and student progress, parents follow updates and results, and students view their own attendance, fees, timetable, and announcements from one place.</p>
+					<div class="links">
+						<a class="small-link" href="teacher/dashboard.html">Teacher</a>
+						<a class="small-link" href="parent/dashboard.html">Parent</a>
+						<a class="small-link" href="student/dashboard.html">Student</a>
 					</div>
 				</article>
 			</section>
