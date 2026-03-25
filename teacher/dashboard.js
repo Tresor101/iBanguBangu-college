@@ -2,6 +2,7 @@ const classSelector = document.getElementById("classSelector");
 const statClasses = document.getElementById("statClasses");
 const statStudents = document.getElementById("statStudents");
 const statAttendance = document.getElementById("statAttendance");
+const statSubjectLabel = document.getElementById("statSubjectLabel");
 const statPending = document.getElementById("statPending");
 const overviewName = document.getElementById("overviewName");
 const overviewSubject = document.getElementById("overviewSubject");
@@ -66,8 +67,6 @@ function renderPerformance(performance) {
         <tr>
           <td>${item.student}</td>
           <td>${item.average}%</td>
-          <td>${item.attendance}%</td>
-          <td><span class="badge text-bg-${item.badge}">${item.status}</span></td>
         </tr>
       `
     )
@@ -98,9 +97,19 @@ function renderGradeEditor(selectedClass) {
     .join("");
 }
 
+function computeClassAverage(performance) {
+  if (!performance || performance.length === 0) {
+    return 0;
+  }
+  const total = performance.reduce((sum, item) => sum + item.average, 0);
+  return Math.round(total / performance.length);
+}
+
 function renderClass(selectedClass) {
   statClasses.textContent = selectedClass.totalClasses;
-  statStudents.textContent = selectedClass.students;
+  const classAvg = computeClassAverage(selectedClass.performance);
+  statStudents.textContent = `${classAvg}%`;
+  statSubjectLabel.textContent = `${selectedClass.subject} · ${selectedClass.name}`;
   statAttendance.textContent = `Attendance today: ${selectedClass.attendanceToday}%`;
   statPending.textContent = selectedClass.pendingGrading;
 
