@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>iBanguBangu Pricate School | Sign In</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="signin.css" />
+</head>
+<body>
+	<div class="shell">
+		<section class="intro" aria-label="Sign in info">
+			<h1>Student and Parent Sign In</h1>
+			<p>
+				This sign-in page only requests a Student ID or Parent ID.
+				No password is required here.
+			</p>
+		</section>
+
+		<section class="form-wrap">
+			<div class="topline">
+				<a href="../index.html">Back to home</a>
+				<span>ID access</span>
+			</div>
+
+			<h2 class="title">Continue with ID</h2>
+			<p class="subtitle">Choose account type and enter your ID.</p>
+
+			<form id="signinForm" class="form-grid" novalidate>
+				<div>
+					<label for="accountType">Account Type</label>
+					<select id="accountType" class="field" required>
+						<option value="" selected disabled>Select account type</option>
+						<option value="student">Student</option>
+						<option value="parent">Parent</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="accountId">Student or Parent ID</label>
+					<input id="accountId" class="field" type="text" placeholder="e.g. STU260001 or PAR260001" minlength="3" required />
+				</div>
+
+				<button class="btn" type="submit">Sign in</button>
+				<div id="formAlert" class="alert" role="alert" aria-live="polite"></div>
+			</form>
+		</section>
+	</div>
+
+	<script src="signin.js"></script>
+</body>
+</html>
